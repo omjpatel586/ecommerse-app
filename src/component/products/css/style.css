@@ -1,0 +1,205 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+pre{
+    margin: 0;
+    text-align: right;
+}
+
+.bg-style{
+    height: 2000vh;
+    background-color: rgb(50, 50, 50);
+}
+
+.image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    padding: 5px;
+    box-shadow: 5px 5px 5px black , -5px -5px 5px black;
+    margin: 20px;
+    overflow: hidden;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+}
+
+.products{
+    border: 1px solid #FF9800;
+    border-radius: 14px;
+    box-shadow: 10px 10px 10px black , -10px -10px 10px black;
+}
+
+.single-buybtn input{
+    background-color: #FF9800;
+    border: white;
+    border-radius: 14px;
+    padding: 10px;
+    transition: .4s;
+}
+
+.single-buybtn input:hover{
+    background-color: yellow;
+    color: blue;
+}
+
+.content{
+    color: white;
+    padding: 10px 20px;
+}
+
+.content h1{
+    text-align: right;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.content p{
+    text-align: right;
+    margin: 0;
+}
+
+.content h1,p{
+    margin: 0;
+}
+
+.discounts{
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+.discounts1{
+    color: green;
+    font-weight: bolder;
+}
+
+.categories{
+    background-color: yellowgreen;
+    text-transform: capitalize;
+    color: rgb(36, 36, 246);
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+.main-hover .products{
+    transition: .4s;
+}
+
+.main-hover:hover .products{ 
+    box-shadow: 10px 10px 20px gray , -10px -10px 20px gray;
+}
+
+.single-hover a{
+    color: red;
+}
+
+.single-ratings{
+    border: none;
+    background-color: transparent;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.single-hover:hover a{
+    color: aqua;
+}
+
+.image2{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image3{
+    height: 100px;
+    column-gap: 20px;
+}
+
+.content1 h1,h2,p,a,i {
+    margin: 0;
+}
+
+.buydetails{
+    font-family: sans-serif;
+    font-style: oblique;
+    font-weight: bolder;
+    color: white;
+}
+
+.buydetails .qty{
+    width: 20%;
+    height: 20%;
+    font-weight: bolder;
+    font-size: 30px;
+    color: white;
+    background-color: gray;
+}
+
+.buydetails .cb{
+    width: 25%;
+    height: 18px;
+    accent-color: gray;
+}
+
+.image3{
+    height: 100%;
+    row-gap: 20px;
+}
+
+/* ------------------------------------ Custom Responsive CSS -------------------------------- */
+
+@media (min-width:340px) and (max-width:400px) {
+    .products{
+        flex-wrap: wrap;
+    }
+    .image{
+        margin: 20px;
+    }
+    .discounts{
+        top: 20px;
+        left: 20px;
+    }
+}
+
+@media (min-width:340px) and (max-width:910px) {
+    .media{
+        flex-wrap: wrap;
+    }
+}
+
+@media (min-width:340px) {
+    .media-grid{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .media-small{
+        width: 150px;
+    }
+    .media-small img{
+        width: 25%;
+    }
+}
+
+@media (min-width:540px) {
+    .media-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .media-small{
+        width: 100px;
+    }
+    .media-small img{
+        width: 50%;
+    }
+}
+
+@media (min-width:980px) {
+    .media-grid{
+        grid-template-columns: repeat(3,1fr);
+    }
+}
