@@ -1,0 +1,82 @@
+.bg-image{
+    height: 100vh;
+    background: url(../Images/bg.jfif);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.layer{
+    height: 100%;
+    background-color: rgba(40, 16, 227, 0.6);
+}
+
+.height{
+    padding: 10% 0;
+}
+
+.h-register{
+    padding: 8% 0;
+}
+
+.box{
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border: 0;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.boxImg{
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border: 0;
+    padding: 10px 0;
+    margin: 10px 0;
+    color: white;
+}
+
+.box::placeholder{
+    color: gray;
+    font-weight: bolder;
+}
+
+i{
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border: 0;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: white;
+    color: gray;
+}
+
+.button{
+    width: 100%;
+    background-color: rgb(48, 48, 48);
+    border-radius: 14px;
+    border: 0;
+    font-weight: bolder;
+    padding: 5px;
+    color: white;
+}
+
+.extra a{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.wrap i{
+    background-color: transparent;
+    color: white;
+}
+
+.extra a:hover , .wrap:hover i{
+    color: red;
+}
+
+.heading h1{
+    text-align: center;
+    color: rgb(205, 202, 202);
+    font-size: 25px;
+}

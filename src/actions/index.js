@@ -7,26 +7,23 @@ export const AddToCart = (pid=id) => {
     }
 }
 
-export const Quantity = (p_price,p_qty) => {
+export const Index = (link) => {
     return {
-        type:"qty",
-        price:p_price,
-        qty:p_qty
+        type:"index",
+        url:link
     }
 }
 
-export const Check = (status) => {
-    
-    if(status==true) {
-        return {
-            type:"checked",
-            payload:true
-        }
-    } else {
-        return {
-            type:"unchecked",
-            payload:false
-        }
+export const Quantity = (status,k) => {
+    const obj = {
+        "price":window.localStorage.getItem("price"),
+        "qty":window.localStorage.getItem("qty"),
+        "index":window.localStorage.getItem("index")
     }
-
+    return {
+        type:"qty",
+        payload:obj,
+        status:status,
+        i:k
+    }
 }

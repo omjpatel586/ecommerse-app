@@ -1,0 +1,59 @@
+.owl-carousel .owl-nav{
+    margin: 0;
+}
+
+.owl-nav .owl-prev{
+    position: absolute;
+    top: 50%;
+    right: 92%;
+    transform: translate(-50%,-50%);
+}
+
+.owl-prev span , .owl-next span{
+    font-size: 100px;
+    background-color: white;
+    border-radius: 14px;
+    padding: 10px;
+}
+
+.owl-nav .owl-next{
+    position: absolute;
+    top: 50%;
+    left: 94%;
+    transform: translate(-50%,-50%);
+}
+
+.owl-prev:hover span{
+    background-color: white;
+    color: red;
+}
+
+.owl-next:hover span{
+    background-color: white;
+    color: red;
+}
+
+.slid-img{
+    height: 450px;
+}
+
+.slid-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 768px) {
+    .slid-img{
+        height: 250px;
+    }
+    .owl-prev span , .owl-next span{
+        font-size: 50px;
+    }
+    .owl-nav .owl-prev{
+        right: 80%;
+    }
+    .owl-nav .owl-next{
+        left: 90%;
+    }
+}

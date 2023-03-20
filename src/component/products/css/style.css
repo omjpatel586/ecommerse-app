@@ -9,19 +9,16 @@ pre{
     text-align: right;
 }
 
-.bg-style{
-    height: 2000vh;
-    background-color: rgb(50, 50, 50);
-}
-
 .image{
     width: 200px;
-    height: 200px;
     object-fit: cover;
     padding: 5px;
-    box-shadow: 5px 5px 5px black , -5px -5px 5px black;
-    margin: 20px;
+    margin: auto;
     overflow: hidden;
+}
+
+.image1{
+    object-fit: cover;
 }
 
 img{
@@ -30,15 +27,22 @@ img{
     border-radius: 14px;
 }
 
+.grid-columns{
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
 .products{
     border: 1px solid #FF9800;
     border-radius: 14px;
-    box-shadow: 10px 10px 10px black , -10px -10px 10px black;
+    box-shadow: 5px 5px 4px black , -5px -5px 4px black;
+    background-color: rgb(179, 178, 178);
 }
 
 .single-buybtn input{
     background-color: #FF9800;
-    border: white;
+    border: black;
     border-radius: 14px;
     padding: 10px;
     transition: .4s;
@@ -50,29 +54,22 @@ img{
 }
 
 .content{
-    color: white;
-    padding: 10px 20px;
+    color: black;
+    padding: 20px;
+    text-align: center;
 }
 
 .content h1{
-    text-align: right;
     font-size: 20px;
     text-transform: capitalize;
 }
 
 .content p{
-    text-align: right;
     margin: 0;
 }
 
 .content h1,p{
     margin: 0;
-}
-
-.discounts{
-    top: 20px;
-    left: 20px;
-    z-index: 1;
 }
 
 .discounts1{
@@ -130,7 +127,10 @@ img{
     font-family: sans-serif;
     font-style: oblique;
     font-weight: bolder;
-    color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .buydetails .qty{
@@ -138,19 +138,65 @@ img{
     height: 20%;
     font-weight: bolder;
     font-size: 30px;
-    color: white;
-    background-color: gray;
+    color: black;
+    background-color: white;
 }
 
-.buydetails .cb{
+.prod-desv .cb{
     width: 25%;
     height: 18px;
     accent-color: gray;
+    align-self: center;
 }
 
 .image3{
     height: 100%;
     row-gap: 20px;
+}
+
+.prod-desv{
+    width: 75%;
+    border: 2px solid rgb(179, 178, 178);
+    border-radius: 14px;
+    transition: .2s;
+}
+
+.prod-desv:hover{
+    box-shadow: 5px 5px 4px black , -5px -5px 4px black;
+}
+
+.prod-desv .image{
+    object-fit: cover;
+    padding: 5px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.prod-desv .image img{
+    border-radius: 0;
+}
+
+.prod-desv .content{
+    text-align: left;
+}
+
+.prod-desv .content pre{
+    text-align: left;
+}
+
+.prod-desv .discounts{
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    display: none;
+}
+
+.prod-desv:hover .discounts {
+    display: block;
+}
+
+.prod-desv .cart{
+    border-radius: 50%;
 }
 
 /* ------------------------------------ Custom Responsive CSS -------------------------------- */
@@ -174,7 +220,51 @@ img{
     }
 }
 
-@media (min-width:340px) {
+@media (min-width:330px) and (max-width:768px) {
+    .grid-columns{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .image1{
+        transform: translateX(25%);
+    }
+    .content{
+        padding: 10px;
+        text-align: left;
+    }
+    .content h1{
+        font-size: 15px;
+    }
+    .content p{
+        color: gray;
+    }
+    .content pre{
+        margin: 0;
+        text-align: left;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bolder;
+    }
+    .discounts{
+        top: 0;
+        left: 0;
+        display: none;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    .discounts:hover{
+        display: block;
+    }
+    .products{
+        background-color: transparent;
+        border: none;
+        box-shadow: 2px 2px 2px black , -2px -2px 2px black;
+    }
+    .img{
+        background-color: gray;
+        border-radius: 14px;
+    }
+    .single-buybtn{
+        font-size: 10px;
+    }
     .media-grid{
         grid-template-columns: repeat(1,1fr);
     }
@@ -199,7 +289,10 @@ img{
 }
 
 @media (min-width:980px) {
-    .media-grid{
+    .grid-columns , .media-grid{
         grid-template-columns: repeat(3,1fr);
+    }
+    .grid-columns .prod-desv{
+        justify-self: center;
     }
 }

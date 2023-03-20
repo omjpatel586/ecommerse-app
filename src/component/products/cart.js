@@ -1,28 +1,43 @@
-import { useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import { useContext, useEffect, useState } from "react"
+import { Container } from "react-bootstrap"
 import OwlCarousel from 'react-owl-carousel'
 import { Rating } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
+import { Switch, Case, CaseElse } from 'react-context-switch'
 import axios from "axios"
 import { AddToCart } from "../../actions"
+import Header from "../header"
+import { BsCartFill } from "react-icons/bs"
 
 export const Cart_Page = () => {
+    const [val,setval] = useState([])
     const [single, setsingle] = useState(false)
     const unload = useDispatch()
     const fdata = useSelector((i) => i.Cart)
 
-    const check_stock = (props) => {
+    const check_stock = (i) => {
         let arr = ["In Stock", "Out Of Stock"]
-        return ((props != 0) ? <div style={{ color: "lightgreen" }}>{arr[0]}</div> : <div style={{ color: "red" }}>{arr[1]}</div>)
+        return ((i != 0) ? <div style={{ color: "blue" }}>{arr[0]}</div> : <div style={{ color: "red" }}>{arr[1]}</div>)
+    }
+
+    const cartin = (id) => {
+        let pid = new FormData()
+        pid.append("action", "cart")
+        pid.append("id", id)
+        axios.post("https://omcdmiweb.000webhostapp.com/ecommerseapi.php", pid)
+            .then(function (success) {
+                console.log(success)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
         axios.get("https://omcdmiweb.000webhostapp.com/getid.php")
             .then(function (success) {
+                setval([...success.data])
                 setsingle(true)
-                success.data.map((i)=>{
-                    unload(AddToCart(i.id))
-                })
             })
             .catch(function (error) {
                 setsingle(false)
@@ -31,80 +46,94 @@ export const Cart_Page = () => {
     }, [])
 
     if (single) {
+        val.map((i) => {
+            unload(AddToCart(i.id))
+        })
         return (
             <>
-                <div className="bg-style">
+                <Header />
+                <div className="p-3">
                     <Container>
-                        <Row xs={1} lg={2} className="p-5" style={{ rowGap: "30px" }}>
+                        <div className="d-grid grid-columns">
                             {
-                                 fdata.map((i =>
-                                    <Col xs={12} lg={6}>
-                                        {/* <button className="btn text-decoration-none main-hover w-100" onClick={()=>{setsingle([true,i.id])}}> </button>*/}
-                                        <a href={`/single/${i.id}`} className="btn text-decoration-none main-hover w-100">
-                                            <div className="categories p-2">{i.category}</div>
-                                            <div className="d-flex justify-content-between products position-relative">
-                                                <div className="image">
-                                                    <OwlCarousel className="owl-theme" loop items={1} dots={false} autoplay autoplayTimeout={2000}>
-                                                        <div className="item">
-                                                            <img src={i.images[0]} alt="Image Not Available"></img>
-                                                        </div>
-                                                        <div className="item">
-                                                            <img src={i.images[1]} alt="Image Not Available"></img>
-                                                        </div>
-                                                        <div className="item">
-                                                            <img src={i.images[2]} alt="Image Not Available"></img>
-                                                        </div>
-                                                        <div className="item">
-                                                            <img src={i.images[3]} alt="Image Not Available"></img>
-                                                        </div>
-                                                    </OwlCarousel>
+                                fdata.map((i) => {
+                                    return (
+                                        <div className="prod-desv position-relative d-grid">
+                                            <div className="image">
+                                                <OwlCarousel className="owl-theme" loop items={1} dots={false} autoplay autoplayTimeout={2000}>
+                                                    {
+                                                        i.images.map((j) => {
+                                                            return (
+                                                                <Switch value={j}>
+                                                                    <Case when={(val) => { val.includes("") }}>
+                                                                        <div className="item">
+                                                                            <img src={require("./Images/no-find.jpg")}></img>
+                                                                        </div>
+                                                                    </Case>
+                                                                    <CaseElse>
+                                                                        <div className="item">
+                                                                            <img src={j} alt="Frame Not Available"></img>
+                                                                        </div>
+                                                                    </CaseElse>
+                                                                </Switch>
+                                                            )
+                                                        })
+                                                    }
+                                                </OwlCarousel>
+                                            </div>
+                                            <div className="content align-self-center">
+                                                <div className="ratings">
+                                                    <Rating name="half-rating-read" defaultValue={i.rating} precision={0.5} readOnly className="fs-5" />
                                                 </div>
-                                                <div className="content">
+                                                <div>
                                                     <h1>{i.title}</h1>
                                                     <p>{i.brand}</p>
-                                                    <pre>
-                                                        Price :- <strike>&#x20b9;{i.price}</strike> &#x20b9;{Math.round(i.price - (i.price * i.discountPercentage / 100))}</pre>
-                                                    <div><pre> </pre></div>
-                                                    <div>
-                                                        <p>{check_stock(i.stock)}</p>
-                                                        <div className="ratings">
-                                                            <p>Ratings :- {i.rating}</p>
-                                                            <div className="d-flex" style={{ justifyContent: "flex-end" }}>
-                                                                <Rating name="half-rating-read" defaultValue={i.rating} precision={0.5} readOnly />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <p>{check_stock(i.stock)}</p>
                                                 </div>
-                                                <div className="discounts position-absolute text-white bg-danger">{i.discountPercentage}%</div>
+                                                <div className="py-2">
+                                                    <pre className="m-0 fs-5 text-danger fw-bolder"><strike>&#x20b9;{i.price}</strike> &#x20b9;{Math.round(i.price - (i.price * i.discountPercentage / 100))}
+                                                    </pre>
+                                                </div>
                                             </div>
-                                        </a>
-                                        {/* <div className="buydetails">
-                                            <input type="number" min="1" max={i.stock} className="qty m-3" value="0"></input>Quantity
-                                            <input type="checkbox" className="cb"></input>SelectToAdd
-                                        </div> */}
-                                    </Col>
-                                ))
+                                            <div className="discounts position-absolute text-white bg-danger">{i.discountPercentage}%</div>
+                                            <div className="position-absolute" style={{
+                                                top: "45%",
+                                                left: "70%",
+                                                zIndex: "1",
+                                            }}>
+                                                <button className="btn" onClick={() => { cartin(i.id) }}><i className="text-white cart" style={{ backgroundColor: "#15BD68" }}><BsCartFill /></i></button>
+                                            </div>
+                                            {/* <div className="d-flex align-items-center justify-content-evenly">
+                                                <div className="d-flex">
+                                                    <input type="button" value="+" className="btn btn-dark align-self-center" onClick={incr}></input>
+                                                    <h1 className="fw-bolder p-2 align-self-center">{val}</h1>
+                                                    <input type="button" value="-" className="btn btn-dark align-self-center" onClick={decr}></input>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <input type="checkbox" className="cb" onChange={(i) => {
+                                                        unload(Quantity(i.target.checked, i.index))
+                                                    }}></input>
+                                                    <h1 className="fs-6 fw-bolder p-2 align-self-center">SelectToAdd</h1>
+                                                </div>
+                                            </div> */}
+                                        </div>
+                                    )
+                                })
                             }
-                        </Row>
-                        <div>
-                            <a href="/" className="p-2">1</a>
-                            <a href="/nextprod2" className="p-2">2</a>
                         </div>
                     </Container>
-                </div>
+                </div >
             </>
         )
-    } else {
-        return (
-            <div className="d-flex justify-content-center text-white bg-style-spinner">
-                <div class="spinner">
-                    <div class="spinner-circle spinner-circle-outer"></div>
-                    <div class="spinner-circle-off spinner-circle-inner"></div>
-                    <div class="spinner-circle spinner-circle-single-1"></div>
-                    <div class="spinner-circle spinner-circle-single-2"></div>
-                </div>
-            </div>
-        )
     }
-
+    return (
+        <div className="d-flex justify-content-center text-white bg-style-spinner">
+            <div class="spinner">
+                <div class="spinner-circle spinner-circle-outer"></div>
+                <div class="spinner-circle-off spinner-circle-inner"></div>
+                <div class="spinner-circle spinner-circle-single-1"></div>
+                <div class="spinner-circle spinner-circle-single-2"></div>
+            </div>
+        </div>
+    )
 }
